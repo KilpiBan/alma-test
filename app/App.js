@@ -1,11 +1,12 @@
 var React = require('react');
 var Store = require('./Store.js');
 var actions = require('./actions.js');
+var $ = require('jquery');
 
 var App = React.createClass({
   getInitialState: function () {
     return {
-      locations: Store.getMessages(),
+      locations: Store.getLocations(),
       searchLocation: ''
     };
   },
@@ -37,8 +38,9 @@ var App = React.createClass({
   },
   locationQuery: function (event) {
     event.preventDefault();
-    var input = this.refs.searchLocation.getDOMNode();
-    var url = "https://api.openweathermap.org/data/2.5/weather?q=" + input;
+    var input = this.state.searchLocation;
+    var appid = "c3b7932e6030f7cf5b86a88bb24cbf4e";
+    var url = "https://api.openweathermap.org/data/2.5/weather?q=" + input + "&APPID=" + appid;
     this.setState({
       state: 'aquiring data...',
       weather: this.state.weather
